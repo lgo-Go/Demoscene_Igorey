@@ -4,7 +4,6 @@ Amplitude amp;
 AudioIn in;
 
 
-
 class Circle  {
     float x,y,b,c;
     Circle(float x1, float y1, float b1, float c1)
@@ -18,6 +17,10 @@ class Circle  {
   void draw() 
    {
     ellipse(this.x,this.y,this.b,this.c);
+   }
+   void rardius()
+   {
+     this.b=this.c=amp.analyze()*100;
    }
   }
 
@@ -36,8 +39,8 @@ void setup() {
   
   float b = random(10,100);
   
-  c_array = new Circle[20];
-  for(int a = 0; a < 20 ; a++)
+  c_array = new Circle[100];
+  for(int a = 0; a < 100 ; a++)
   {
   c_array[a] = new Circle(random(width), random(height),b,b);}
   }      
@@ -47,9 +50,10 @@ void draw()
   background(255);
   println(amp.analyze());
   
-  for(int a = 0; a < 20 ; a++)
+  for(int a = 0; a < 100 ; a++)
   {
    c_array[a].draw();
+   c_array[a].rardius();
   }
 
 if(amp.analyze()<0.2)

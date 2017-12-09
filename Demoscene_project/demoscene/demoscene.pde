@@ -1,11 +1,10 @@
 import processing.sound.*;
 SoundFile file;
 Amplitude amp;
-AudioIn in;
 
 
 class Circle  {
-    float x,y,b,c;
+    float x,y,b,c,s,o;
     Circle(float x1, float y1, float b1, float c1)
     {
       this.x = x1;
@@ -21,7 +20,20 @@ class Circle  {
    void rardius()
    {
      this.b=this.c=amp.analyze()*100;
-   }
+     this.y++;
+     
+     if(this.y>height){
+       this.y=0;
+       this.x = random(1,1999);
+        if(amp.analyze()<0.2)
+        {
+          fill(10,10,240);
+        } 
+          if(amp.analyze()>0.2){
+          fill(240,10,10);
+        }
+      }
+    }
   }
 
 Circle[] c_array;
@@ -33,11 +45,9 @@ void setup() {
   file = new SoundFile(this, "EOTT.flac");
   file.play(1);
   amp = new Amplitude(this);
-  in = new AudioIn(this,0);
-  in.start();
   amp.input(file);
   
-  float b = random(10,100);
+    float b = random(100,1000);
   
   c_array = new Circle[100];
   for(int a = 0; a < 100 ; a++)
@@ -54,16 +64,7 @@ void draw()
   {
    c_array[a].draw();
    c_array[a].rardius();
-  }
 
-if(amp.analyze()<0.2)
-  {
-    ellipse(width/2 ,height/2,amp.analyze()*1000,amp.analyze()*1000);
-    fill(10,10,240);
-  } 
-   if(amp.analyze()>0.2){
-    ellipse(width/2 ,height/2,amp.analyze()*1000,amp.analyze()*1000);
-    fill(240,10,10);
   }
 
 }

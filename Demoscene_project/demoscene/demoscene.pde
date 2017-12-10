@@ -2,69 +2,91 @@ import processing.sound.*;
 SoundFile file;
 Amplitude amp;
 
+int[] x = new int[1000];
+int[] y = new int[1000];
+int[] z = new int[1000];
+int[] v = new int[1000];
+int[] b = new int[1000];
+int[] c = new int[1000];
 
-class Circle  {
-    float x,y,b,c,s,o;
-    Circle(float x1, float y1, float b1, float c1)
-    {
-      this.x = x1;
-      this.y = y1;
-      this.b = b1;
-      this.c = c1;
-    }
+class Box  
+      {
+       float x,m,n,l;
+       Box(float l1, float m1,float n1)
+          {
+           this.l = l1;          
+           this.m = m1;
+           this.n = n1;
+          }
   
-  void draw() 
-   {
-    ellipse(this.x,this.y,this.b,this.c);
-   }
-   void rardius()
-   {
-     this.b=this.c=amp.analyze()*100;
-     this.y++;
-     
-     if(this.y>height){
-       this.y=0;
-       this.x = random(1,1999);
-        if(amp.analyze()<0.2)
-        {
-          fill(10,10,240);
-        } 
-          if(amp.analyze()>0.2){
-          fill(240,10,10);
-        }
-      }
+       void draw() 
+      {
+             box(this.x);
+             if(amp.analyze()<0.2)
+               {
+                fill(255,255,0);
+                stroke(0);
+               } 
+             else if(amp.analyze()>0.2)
+               {
+                fill(240,10,10);
+               }
+            }
+       void rardius()
+            {
+             translate(m,n,l);
+             this.x=amp.analyze()*100;
+            
+      
     }
   }
 
-Circle[] c_array;
+Box[] c_array;
 
 void setup() {
-  size(2000,1000);
+  size(displayWidth,displayHeight,P3D);
   background(255);
    
   file = new SoundFile(this, "EOTT.flac");
   file.play(1);
   amp = new Amplitude(this);
   amp.input(file);
+
   
-    float b = random(100,1000);
-  
-  c_array = new Circle[100];
-  for(int a = 0; a < 100 ; a++)
+  for(int s = 0; s < 1000 ; s++)
   {
-  c_array[a] = new Circle(random(width), random(height),b,b);}
+    v[s]=int(random(-600,600));
+    b[s]=int(random(-600,600));
+    c[s]=int(random(-600,600));
+  }
+  
+  
+  c_array = new Box[1000];
+  for(int a = 0; a < 1000 ; a++)
+  {
+    x[a]=int(random(-8,8));
+    y[a]=int(random(-8,8));
+    z[a]=int(random(-8,8));
+  c_array[a] = new Box(x[a],y[a],z[a]);}
   }      
 
 void draw() 
 {
-  background(255);
+  background(0);
   println(amp.analyze());
-  
-  for(int a = 0; a < 100 ; a++)
+  translate(width/2,height/2);
+  noFill();
+  rotateY(frameCount/100.0);
+  rotateX(frameCount/100.0);
+  for(int i = 0 ; i< 1000; i++)
   {
-   c_array[a].draw();
-   c_array[a].rardius();
-
+    stroke(255,255,0);   
+    point(v[i],b[i],c[i]);
+    
   }
-
+  for(int i = 0 ; i< 1000; i++)
+  {
+    c_array[i].draw();
+    c_array[i].rardius();
+  }
 }

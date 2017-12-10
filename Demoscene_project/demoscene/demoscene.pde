@@ -5,9 +5,9 @@ Amplitude amp;
 int[] x = new int[1000];
 int[] y = new int[1000];
 int[] z = new int[1000];
-int[] v = new int[1000];
-int[] b = new int[1000];
-int[] c = new int[1000];
+int[] v = new int[2000];
+int[] b = new int[2000];
+int[] c = new int[2000];
 
 class Box  
       {
@@ -34,7 +34,7 @@ class Box
             }
        void rardius()
             {
-             translate(m,n,l);
+             translate(random(-10,10),random(-10,10),random(-10,10));
              this.x=amp.analyze()*100;
             
       
@@ -55,36 +55,37 @@ void setup() {
   
   for(int s = 0; s < 1000 ; s++)
   {
-    v[s]=int(random(-600,600));
-    b[s]=int(random(-600,600));
-    c[s]=int(random(-600,600));
+    v[s]=int(random(-displayWidth,displayWidth));
+    b[s]=int(random(-displayHeight,displayHeight));
+    c[s]=int(random(-displayHeight,displayHeight));
   }
   
   
   c_array = new Box[1000];
   for(int a = 0; a < 1000 ; a++)
   {
-    x[a]=int(random(-8,8));
-    y[a]=int(random(-8,8));
-    z[a]=int(random(-8,8));
+    x[a]=int(random(-10,10));
+    y[a]=int(random(-10,10));
+    z[a]=int(random(-10,10));
   c_array[a] = new Box(x[a],y[a],z[a]);}
   }      
 
 void draw() 
 {
+  
   background(0);
   println(amp.analyze());
   translate(width/2,height/2);
   noFill();
   rotateY(frameCount/100.0);
   rotateX(frameCount/100.0);
-  for(int i = 0 ; i< 1000; i++)
+  for(int i = 0 ; i< 2000; i++)
   {
     stroke(255,255,0);   
     point(v[i],b[i],c[i]);
     
   }
-  for(int i = 0 ; i< 1000; i++)
+  for(int i = 0 ; i< 200; i++)
   {
     c_array[i].draw();
     c_array[i].rardius();

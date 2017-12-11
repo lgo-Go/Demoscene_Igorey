@@ -29,16 +29,13 @@ class Box {
     void rardius() {
         translate(m, l, n);
         this.x = amp.analyze() * 100;
-
-
     }
 }
 
 Box[] c_array;
 
 void setup() {
-    size(displayWidth, displayHeight, P3D);
-
+    fullScreen(P3D);
     file = new SoundFile(this, "Tiger.mp3");
     file.play(1);
     amp = new Amplitude(this);
@@ -51,12 +48,12 @@ void setup() {
         c[s] = int(random(-displayHeight, displayHeight));
     }
 
-
     c_array = new Box[1000];
     for (int a = 0; a < 1000; a++) {
         x[a] = int(random(-10, 10));
         y[a] = int(random(-10, 10));
         z[a] = int(random(-10, 10));
+        
         c_array[a] = new Box(x[a], y[a], z[a]);
     }
 }
@@ -65,11 +62,11 @@ void draw() {
 
     background(0);
     println(amp.analyze());
-    translate(width / 2, height / 2);
-    noFill();
+    translate(width / 2, height / 2, 0);
+    
     rotateY(frameCount / 100.0);
     rotateX(frameCount / 100.0);
-    for (int i = 0; i < 2000; i++) {
+    for (int i = 0; i < 200; i++) {
         stroke(255);
         point(v[i], b[i], c[i]);
 

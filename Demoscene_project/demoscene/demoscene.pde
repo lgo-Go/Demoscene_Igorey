@@ -34,7 +34,7 @@ class Box
             }
        void rardius()
             {
-             translate(random(-10,10),random(-10,10),random(-10,10));
+             translate(m,l,n);
              this.x=amp.analyze()*100;
             
       

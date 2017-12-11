@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-  
-=======
 import processing.sound.*;
 SoundFile file;
 Amplitude amp;
@@ -80,4 +76,3 @@ void draw() {
         c_array[i].rardius();
     }
 }
->>>>>>> Igor_G

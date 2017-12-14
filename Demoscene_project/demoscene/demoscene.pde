@@ -1,12 +1,10 @@
-
-
 import processing.sound.*;
 SoundFile file;
 Amplitude amp;
 
-int[] x = new int[1];
-int[] y = new int[1];
-int[] z = new int[1];
+int[] x = new int[100];
+int[] y = new int[100];
+int[] z = new int[100];
 int[] v = new int[2500];
 int[] b = new int[2500];
 int[] c = new int[2500];
@@ -21,8 +19,10 @@ class Box {
     }
 
     void draw() {
-        sphere(this.x);
-        translate(m, l, n);
+      pushMatrix();
+      translate(m, l, n);
+        box(this.x);
+        popMatrix();
         this.x = amp.analyze() * 500;
         if (amp.analyze() < 0.1) {
           stroke(240, 10, 10);  
@@ -49,12 +49,11 @@ void setup() {
         c[s] = int(random(-displayHeight, displayHeight));
     }
 
-    c_array = new Box[1];
-    for (int a = 0; a < 1; a++) {
-        x[a] = int(random(-10, 10));
-        y[a] = int(random(-10, 10));
-        z[a] = int(random(-10, 10));
-        
+    c_array = new Box[50];
+    for (int a = 0; a < 50; a++) {
+        x[a] = int(random(-100, 100));
+        y[a] = int(random(-100, 100));
+        z[a] = int(random(-100, 100));
         c_array[a] = new Box(x[a], y[a], z[a]);
     }
 }
@@ -119,9 +118,10 @@ void draw() {
       point(v[i], b[i], c[i]);
       
     }
-    for (int i = 0; i < 1; i=i+5) {
+   
+    for (int i = 0; i < 50; i++) {
         if (amp.analyze() < 0.1) {
-          stroke(255, 255, 0);}
+          stroke(255, 0, 0);}
           else {stroke(240, 10, 10);}
         c_array[i].draw();
     }
@@ -134,7 +134,4 @@ void draw() {
       sphere(amp.analyze()*100);
       
     }
-    
-
-    
 }

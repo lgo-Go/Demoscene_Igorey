@@ -21,7 +21,7 @@ class Box {
 
     void draw() {
         pushMatrix();
-        
+
         rotateY(frameCount / -100.0);
         translate(m, l, n);
         box(this.x);
@@ -54,9 +54,9 @@ void setup() {
 
     c_array = new Box[1000];
     for (int a = 0; a < 1000; a++) {
-        x[a] = int(random(-100,100));
-        y[a] = int(random(-100,100));
-        z[a] = int(random(-100,100));
+        x[a] = int(random(-250, 250));
+        y[a] = int(random(-250, 250));
+        z[a] = int(random(-250, 250));
         c_array[a] = new Box(x[a], y[a], z[a]);
     }
 }
@@ -78,16 +78,17 @@ void draw() {
 
     }
 
-    if (t < 650) {
-      if(amp.analyze()<0.1){
-      fill(255,255,10);
-      stroke(255,10,10);
-    sphere(amp.analyze()*300);}
-      else {
-        fill(255,10,10);
-      stroke(255,255,10);
-      sphere(amp.analyze()*300);}
-      
+    if (t < 1880) {
+        if (amp.analyze() < 0.1) {
+            fill(255, 255, 10);
+            stroke(255, 10, 10);
+            sphere(amp.analyze() * 300);
+        } else {
+            fill(255, 10, 10);
+            stroke(255, 255, 10);
+            sphere(amp.analyze() * 300);
+        }
+
         class Sphere {
             float S1, S2, S3;
             Sphere(float S_1, float S_2, float S_3) {
@@ -105,47 +106,35 @@ void draw() {
                 popMatrix();
             }
         }
-
-        Sphere Unit0 = new Sphere(t/5, t/5, t/5);
+        int l = int(amp.analyze() * 1000);
+        Sphere Unit0 = new Sphere(l, l, l);
         Unit0.draw();
-        Sphere Unit1 = new Sphere(-t/5, t/5, t/5);
+        Sphere Unit1 = new Sphere(-l, l, l);
         Unit1.draw();
-        Sphere Unit2 = new Sphere(t/5, -t/5, t/5);
+        Sphere Unit2 = new Sphere(l, -l, l);
         Unit2.draw();
-        Sphere Unit3 = new Sphere(t/5, t/5, -t/5);
+        Sphere Unit3 = new Sphere(l, l, -l);
         Unit3.draw();
-        Sphere Unit4 = new Sphere(-t/5, -t/5, t/5);
+        Sphere Unit4 = new Sphere(-l, -l, l);
         Unit4.draw();
-        Sphere Unit5 = new Sphere(t/5, -t/5, -t/5);
+        Sphere Unit5 = new Sphere(l, -l, -l);
         Unit5.draw();
-        Sphere Unit6 = new Sphere(-t/5, t/5, -t/5);
+        Sphere Unit6 = new Sphere(-l, l, -l);
         Unit6.draw();
-        Sphere Unit7 = new Sphere(-t/5, -t/5, -t/5);
+        Sphere Unit7 = new Sphere(-l, -l, -l);
         Unit7.draw();
 
+    } else {
+        stroke(255, 10, 10);
+        sphere(amp.analyze() * 400);
     }
-       if(t<4600|t>12950){
-        for (int i = 0; i < 100; i++) {
-            if (amp.analyze() < 0.1) {
-                stroke(255, 0, 0);
-            } else {
-                stroke(240, 10, 10);
-            }
-            c_array[i].draw();
-        }} 
-    if(t>2760){
-      fill(255,10,10);
-      stroke(255,0,0);
-      sphere(amp.analyze()*300);
-    }
-    if(t<4600){
-        for (int i = 0; i < 100; i++) {
-            if (amp.analyze() < 0.1) {
-                stroke(255, 10, 0);
-            } else {
-                stroke(240, 250, 10);
-            }
-            c_array[i].draw();
+
+    for (int i = 0; i < 100; i++) {
+        if (amp.analyze() < 0.1) {
+            stroke(255, 0, 0);
+        } else {
+            stroke(240, 10, 10);
         }
+        c_array[i].draw();
     }
 }

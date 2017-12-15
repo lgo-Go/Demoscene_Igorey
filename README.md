@@ -11,4 +11,4 @@
 ### Композиция: <h1> 
     Survivor - Eye Of The Tiger
 
-### загрузить картинку <h1> 
+### (C:\Users\IgorB\Pictures\Screenshots) <h1> 

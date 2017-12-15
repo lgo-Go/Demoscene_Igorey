@@ -12,4 +12,4 @@
     Survivor - Eye Of The Tiger
 
 ### Снимок сцены: <h2>
-![image](Demoscene_Igorey/Screen.png) <h1> 
+![image](Screen.png) <h1> 

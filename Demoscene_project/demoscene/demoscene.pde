@@ -137,4 +137,7 @@ void draw() {
         }
         c_array[i].draw();
     }
+    if(t>19440){
+    noLoop();
+    }
 }

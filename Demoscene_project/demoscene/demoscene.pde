@@ -1,7 +1,9 @@
 import processing.sound.*; 
 SoundFile file; 
 Amplitude amp; 
-
+int[] y_x = new int[100]; 
+int[] y_y = new int[100]; 
+int[] y_z = new int[100];
 int[] x = new int[1000]; 
 int[] y = new int[1000]; 
 int[] z = new int[1000]; 
@@ -58,14 +60,12 @@ class Box {
 
 
 class Yozh {
-  float l_x, l_y, l_z, l_x1, l_y1, l_z1;
-  Yozh(float l_x, float l_y, float l_z, float l_x1, float l_y1, float l_z1) {
+  float k, l_x, l_y, l_z;
+  Yozh(float k, float l_x, float l_y, float l_z) {
+    this.k = k;
     this.l_x = l_x; 
     this.l_y = l_y; 
     this.l_z = l_z;
-    this.l_x1 = l_x1;
-    this.l_y1 = l_y1;
-    this.l_z1 = l_z1;
   }
 
   void igla() {
@@ -73,11 +73,8 @@ class Yozh {
     rotateY(frameCount / -100.0);
     rotateZ(frameCount / -100.0);
     translate(l_x, l_y, l_z);
-    line(l_x, l_y, l_z, l_x1, l_y1, l_z1);
+    line((1*width)/4, height/2, 0, l_x, l_y, l_z);
     popMatrix();
-    l_x1 = l_x + amp.analyze() * 100;
-    l_y1 = l_y + amp.analyze() * 100;
-    l_z1 = l_z + amp.analyze() * 100;
     if (amp.analyze() < 0.1) { 
       stroke(240, 10, 10); 
       fill(255, 255, 0);
@@ -89,6 +86,7 @@ class Yozh {
 }
 
 Box[] c_array; 
+Yozh[] y_array;
 
 void setup() { 
   fullScreen(P3D); 
@@ -110,6 +108,15 @@ void setup() {
     z[a] = int(random(-100, 100)); 
     c_array[a] = new Box(x[a], y[a], z[a]);
   }
+  
+  y_array = new Yozh[100];
+  for (int a = 0; a < 100; a++) { 
+    y_x[a] = int(random((width/4) - 30, (width/4 + 30 ))); 
+    y_y[a] = int(random((height/4) - 30, (height/4 + 30 ))); 
+    y_z[a] = int(random(-30, 30)); 
+    y_array[a] = new Yozh(y_x[a], y_y[a], y_z[a]);
+  }
+  
 } 
 
 void draw() { 
@@ -163,7 +170,19 @@ void draw() {
       } 
       c_array[i].draw();
     }
-  } 
+  }
+  
+if (t>1000) { 
+    for (int i = 0; i < 100; i++) { 
+      if (amp.analyze() < 0.1) { 
+        stroke(255, 0, 0);
+      } else { 
+        stroke(240, 10, 10);
+      } 
+      y_array[i].igla();
+    }
+  }
+  
   if (t>2760) { 
     fill(255, 10, 10); 
     sphere(amp.analyze()*300);
